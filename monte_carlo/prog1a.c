@@ -8,7 +8,6 @@ int main(){
 
     for(int t=1;t<=8;t*=2){
 
-
         for(int n=10000;n<=50000;n+=10000){
             int count=0;
 

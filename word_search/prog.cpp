@@ -1,31 +1,39 @@
-#include<iostream>
-#include<fstream>
-#include<cstring>
-#include<omp.h>
-
+#include <iostream>
+#include <fstream>
+#include <cstring>
+#include <omp.h>
 using namespace std;
-string filename="p.txt";
-string words[4]={"aaa","p","q","aa"};
+
+string inputfile = "words.txt";
+string words[3] = {"Hello", "hye", "rv"};
+
 int main()
 {
-    double t;
-    for(int i=1;i<=8;i=i*2){
-        t=omp_get_wtime();
-        #pragma omp parallel for
-        for(int j=0;j<4;j++)
+    double time;
+
+    for (int t = 1; t <= 8; t *= 2)
+    {
+        time = omp_get_wtime();
+        omp_set_num_threads(t);
+#pragma omp parallel for
+        for (int i = 0; i < 3; i++)
         {
-            fstream file;
-            file.open(filename.c_str());
+            int count = 0;
             string word;
-            int count=0;
-            while(file>>word)
+            fstream file;
+            file.open(inputfile.c_str());
+            while (file >> word)
             {
-                if(strcmp(words[j].c_str(),word.c_str())==0)
-                count++;
+                if (strcmp(words[i].c_str(), word.c_str()) == 0)
+                {
+                    count++;
+                }
             }
-            cout<<words[j]<<":"<<count<<endl;
+            cout << words[i] << " occuring " << count << endl;
         }
-        cout<<"Thread:"<<i<<"\tTime:"<<omp_get_wtime()-t<<endl;
+        time = omp_get_wtime() - time;
+        cout << "Threads " << t << " time taken = " << time << endl<<endl;
     }
+
     return 0;
 }

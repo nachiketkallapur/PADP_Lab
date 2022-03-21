@@ -7,7 +7,7 @@ int main(int argc, char *argv[]){
     int rank;
     double x,y,z,pi,t;
     int count=0,reduced_count;
-    int iter=1000000,reduced_iter;
+    int iter=10000000,reduced_iter;
 
     MPI_Init(&argc,&argv);
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
